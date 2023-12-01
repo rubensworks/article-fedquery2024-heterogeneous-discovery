@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title property="foaf:name schema:name">FedQuery Workshop 2024 Proposal: Discovery of Heterogeneous Interfaces in Decentralized Environments</title>
+  <link rel="stylesheet" media="screen" href="styles/screen.css" />
+  <link rel="stylesheet" media="print"  href="styles/print.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="citation_title" content="FedQuery Workshop 2024 Proposal: Discovery of Heterogeneous Interfaces in Decentralized Environments">
+  <meta name="citation_author" content="Ruben Taelman" />
+  
+  <meta name="citation_publication_date" content="2023/12/01" />
+</head>
+
+<body prefix="dctypes: http://purl.org/dc/dcmitype/ pimspace: http://www.w3.org/ns/pim/space# rsa: http://www.w3.org/ns/auth/rsa# cert: http://www.w3.org/ns/auth/cert# wgs: http://www.w3.org/2003/01/geo/wgs84_pos# biblio: http://purl.org/net/biblio# bibo: http://purl.org/ontology/bibo/ book: http://purl.org/NET/book/vocab# ov: http://open.vocab.org/terms/ doap: http://usefulinc.com/ns/doap# dbr: http://dbpedia.org/resource/ dbp: http://dbpedia.org/property/ sio: http://semanticscience.org/resource/ opmw: http://www.opmw.org/ontology/ deo: http://purl.org/spar/deo/ doco: http://purl.org/spar/doco/ cito: http://purl.org/spar/cito/ fabio: http://purl.org/spar/fabio/ solid: http://www.w3.org/ns/solid/terms# acl: http://www.w3.org/ns/auth/acl# dio: https://w3id.org/dio# lsc: http://linkedscience.org/lsc/ns#" typeof="schema:CreativeWork sioc:Post prov:Entity lsc:Research">
+  <header>
+  <h1 id="fedquery-workshop-2024-proposal-discovery-of-heterogeneous-interfaces-in-decentralized-environments">FedQuery Workshop 2024 Proposal: Discovery of Heterogeneous Interfaces in Decentralized Environments</h1>
+
+  <ul id="authors">
+    <li><a rev="lsc:participatesIn" property="foaf:maker schema:creator schema:author schema:publisher" href="https://www.rubensworks.net/" typeof="foaf:Person schema:Person" resource="https://www.rubensworks.net/#me">Ruben Taelman</a></li>
+  </ul>
+
+  <ul id="affiliations">
+    <li id="idlab">IDLab,
+          Department of Electronics and Information Systems,
+          Ghent University – imec
+          <br />Ghent, Belgium
+          <br />E-mail: ruben.taelman@ugent.be</li>
+  </ul>
+
+  <section class="context">
+    <h2 id="in-reply-to">In reply to</h2>
+    <ul>
+      <li><a href="https://github.com/MaastrichtU-IDS/FedQuery2024" rel="as:inReplyTo">FedQuery Workshop 2024 call for proposals</a></li>
+    </ul>
+  </section>
+
+  <section id="abstract" inlist="" rel="schema:hasPart" resource="#abstract">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Abstract</h2>
+      <!-- Context      -->
+      <p>Decentralized environments such as Solid are identified by permissioned document-oriented interfaces
+which enable personal data to be stored in so-called <em>data pods</em>.
+Such document-oriented interfaces can lead to limitations in terms of query performance,
+which may necessitate the existence of more expressive interfaces in such environments.
+However, these interfaces may be heterogeneous in their nature due to different requirements and hardware capabilities for different pods.
+<!-- Need         -->
+Given the existence of this heterogeneity in server interfaces across decentralized environments,
+there is a need for techniques to discover them, and make use of them during query execution.
+<!-- Task         -->
+As such, we propose a technique based on link traversal to discover heterogeneous interfaces at query time,
+which can be incorporated adaptively into the query plan.
+<!-- Object       -->
+Concretely, we propose the development of a prototype that can discover such interfaces and incorporate them into a federated query engine.
+<!-- Findings     -->
+<!-- Conclusion   -->
+<!-- Perspectives -->
+This prototype might yield relevant research opportunities for future work in the domain of federated query processing.</p>
+
+    </div>
+</section>
+
+</header>
+
+<main>
+  <section id="problems" inlist="" rel="schema:hasPart" resource="#problems">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Problems</h2>
+
+      <p>Initiatives such as <a property="schema:citation http://purl.org/spar/cito/cites" href="https://ruben.verborgh.org/articles/redecentralizing-the-web/">Solid</a> <span class="references">[<a href="#ref-1">1</a>]</span> aim to solve problems
+surrounding personal data exploitation by decentralizing data on the Web.
+Solid does this by allowing everyone to own a personal <em>data pod</em>,
+in which any kind of data can be stored which is in full control of the user.
+It is up to the user to choose who and what can access which data.
+Currently, these pods expose RDF and non-RDF data through the document-oriented <a property="schema:citation http://purl.org/spar/cito/cites" href="https://www.w3.org/TR/ldp/">Linked Data Platform</a> <span class="references">[<a href="#ref-2">2</a>]</span> interface.
+While it has been shown that such interfaces can be queried over <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2023-SolidQuery/">using link traversal-based approaches</a> <span class="references">[<a href="#ref-3">3</a>]</span>,
+there is interest in <a property="schema:citation http://purl.org/spar/cito/cites" href="https://solidlabresearch.github.io/WhatsInAPod/">exposing alternative interfaces</a> <span class="references">[<a href="#ref-4">4</a>]</span> that may lead to more efficient query execution,
+such as the various Linked Data Fragments interfaces <span class="references">[<a href="#ref-5">5</a>]</span>.</p>
+
+    </div>
+</section>
+
+  <section id="solution" inlist="" rel="schema:hasPart" resource="#solution">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Solution</h2>
+
+      <p>We propose an extension of the existing <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2023-SolidQuery/">traversal-based query processing technique for Solid</a> <span class="references">[<a href="#ref-3">3</a>]</span>
+that is able to discover heterogeneous interfaces on pods besides the regular document-oriented interface.
+Furthermore, these discovered interfaces can then be incorporated into the query plan in an adaptive manner.
+Concretely, we will develop a prototype of this approach into the open-source <a property="schema:citation http://purl.org/spar/cito/cites" href="https://comunica.github.io/Article-ISWC2018-Resource/">Comunica</a> <span class="references">[<a href="#ref-6">6</a>]</span> query engine framework.
+In order to evaluate this approach, we will expose heterogeneous interfaces in the simulated SolidBench environment,
+which simulates a decentralized Solid environment containing pods by different people based on a social networking use case.</p>
+
+    </div>
+</section>
+
+  <section id="work-plan" inlist="" rel="schema:hasPart" resource="#work-plan">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Work Plan</h2>
+
+      <p>Before the workshop, we plan on preparing an extension of SolidBench so it can simulate heterogeneous interfaces.
+Furthermore, we will prepare an architecture for implementing various techniques into the Comunica framework for solving the problem.
+During the workshop, we will attempt to implement prototypes for
+1) the discovery of heterogeneous interfaces during link traversal, and
+2) adaptively incorporating them into the query plan.
+Afterwards, we will evaluate their performance in terms of various metrics using SolidBench.</p>
+
+    </div>
+</section>
+
+  <section id="impact" inlist="" rel="schema:hasPart" resource="#impact">
+<div datatype="rdf:HTML" property="schema:description">
+      <h2 property="schema:name">Impact</h2>
+
+      <p>Through this work, we will determine the feasibility of
+introducing heterogeneous interfaces into decentralized environments such as Solid.
+If feasible, it can serve as a next step towards future research into federated query processing
+over heterogeneous interfaces that are discover on-the-fly.</p>
+
+    </div>
+</section>
+
+</main>
+
+<footer><section>
+<h2 id="references">References</h2>
+<dl class="references">
+  <dt id="ref-1">[1]</dt>
+  <dd resource="https://ruben.verborgh.org/articles/redecentralizing-the-web/" typeof="schema:Chapter">Verborgh, R.: Re-decentralizing the Web, for good this time. In: Seneviratne, O. and Hendler, J. (eds.) Linking the World’s Information: A Collection of Essays on the Work of Sir Tim Berners-Lee. ACM (2022).</dd>
+  <dt id="ref-2">[2]</dt>
+  <dd resource="https://www.w3.org/TR/ldp/" typeof="schema:CreativeWork">Speicher, S., Arwe, J., Malhotra, A.: Linked Data Platform 1.0. W3C, <a href="https://www.w3.org/TR/ldp/">https:/​/​www.w3.org/TR/ldp/</a> (2015).</dd>
+  <dt id="ref-3">[3]</dt>
+  <dd resource="https://comunica.github.io/Article-ISWC2023-SolidQuery/" typeof="schema:Article">Taelman, R., Verborgh, R.: Link Traversal Query Processing over Decentralized Environments with Structural Assumptions. In: Proceedings of the 22nd International Semantic Web Conference (2023).</dd>
+  <dt id="ref-4">[4]</dt>
+  <dd resource="https://solidlabresearch.github.io/WhatsInAPod/" typeof="schema:Article">Dedecker, R., Slabbinck, W., Wright, J., Hochstenbach, P., Colpaert, P., Verborgh, R.: What’s in a Pod? – A knowledge graph interpretation for the Solid ecosystem. In: Saleem, M. and Ngonga Ngomo, A.-C. (eds.) Proceedings of the 6th Workshop on Storing, Querying and Benchmarking Knowledge Graphs. pp. 81–96 (2022).</dd>
+  <dt id="ref-5">[5]</dt>
+  <dd resource="#ldf" typeof="schema:Article">Verborgh, R., Vander Sande, M., Hartig, O., Van Herwegen, J., De Vocht, L., De Meester, B., Haesendonck, G., Colpaert, P.: Triple Pattern Fragments: a low-cost Knowledge Graph Interface for the Web. Journal of Web Semantics. 37, 184–206 (2016).</dd>
+  <dt id="ref-6">[6]</dt>
+  <dd resource="https://comunica.github.io/Article-ISWC2018-Resource/" typeof="schema:Article">Taelman, R., Van Herwegen, J., Vander Sande, M., Verborgh, R.: Comunica: a Modular SPARQL Query Engine for the Web. In: Proceedings of the 17th International Semantic Web Conference (2018).</dd>
+</dl>
+</section>
+</footer>
+
+
+
+</body>
+</html>
